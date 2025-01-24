@@ -9,7 +9,7 @@ This is a live repository, where there is a breakdown of different stages/files 
 There is three different folders in this project, Beginner, Intermediate, and Expert. 
 
 ### Projects
-There are different projects within this main Python folder, such as add and subtract (Project), and SimpleWeatherProject
+There are different projects within this main Python folder, such as add and subtract (Project), a SimpleWeatherProject, and a Task To Do Manager
 
 ---
 
