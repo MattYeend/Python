@@ -1,6 +1,14 @@
-from Python.LibraryManagement.library.book_manager import display_books, add_book
-from Python.LibraryManagement.library.user_manager import borrow_book, return_book
-from Python.LibraryManagement.library.data_manager import load_library_data, save_library_data
+# Potential to comment out
+import sys
+import os
+
+# Add the parent directory of "Python" to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+# Potential to comment out above
+
+from library.book_manager import display_books, add_book
+from library.user_manager import borrow_book, return_book
+from library.data_manager import load_library_data, save_library_data
 
 def main():
     library = load_library_data()

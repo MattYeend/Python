@@ -1,4 +1,6 @@
-from Python.LibraryManagement.library.book_manager import display_books
+from library.book_manager import display_books
+
+from datetime import datetime
 
 def borrow_book(library):
     """Borrow a book from the library."""
@@ -14,7 +16,10 @@ def borrow_book(library):
             if book["borrowed"]:
                 print(f"The book '{book['title']}' is already borrowed.")
             else:
+                borrower = input("Enter your name: ").strip()
                 book["borrowed"] = True
+                book["borrower"] = borrower
+                book["borrow_date"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 print(f"You have borrowed '{book['title']}'!")
             return
     
@@ -28,6 +33,8 @@ def return_book(library):
         if book["title"].lower() == book_title.lower():
             if book["borrowed"]:
                 book["borrowed"] = False
+                book["borrower"] = None
+                book["borrow_date"] = None
                 print(f"Thank you for returning '{book['title']}'!")
             else:
                 print(f"The book '{book['title']}' was not borrowed.")

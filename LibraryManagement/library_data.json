@@ -1,0 +1,94 @@
+{
+    "books": [
+        {
+            "title": "To Kill a Mockingbird",
+            "author": "Harper Lee",
+            "isbn": "978-0060935467",
+            "borrowed": false
+        },
+        {
+            "title": "1984",
+            "author": "George Orwell",
+            "isbn": "978-0451524935",
+            "borrowed": false
+        },
+        {
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "isbn": "978-0743273565",
+            "borrowed": false
+        },
+        {
+            "title": "Pride and Prejudice",
+            "author": "Jane Austen",
+            "isbn": "978-1503290563",
+            "borrowed": false
+        },
+        {
+            "title": "Moby Dick",
+            "author": "Herman Melville",
+            "isbn": "978-1503280786",
+            "borrowed": false
+        },
+        {
+            "title": "War and Peace",
+            "author": "Leo Tolstoy",
+            "isbn": "978-0199232765",
+            "borrowed": false
+        },
+        {
+            "title": "The Catcher in the Rye",
+            "author": "J.D. Salinger",
+            "isbn": "978-0316769488",
+            "borrowed": false
+        },
+        {
+            "title": "The Hobbit",
+            "author": "J.R.R. Tolkien",
+            "isbn": "978-0547928227",
+            "borrowed": false
+        },
+        {
+            "title": "The Adventures of Sherlock Holmes",
+            "author": "Arthur Conan Doyle",
+            "isbn": "978-1508475314",
+            "borrowed": false
+        },
+        {
+            "title": "The Road",
+            "author": "Cormac McCarthy",
+            "isbn": "978-0307387899",
+            "borrowed": false
+        },
+        {
+            "title": "Crime and Punishment",
+            "author": "Fyodor Dostoevsky",
+            "isbn": "978-0140449136",
+            "borrowed": false
+        },
+        {
+            "title": "Brave New World",
+            "author": "Aldous Huxley",
+            "isbn": "978-0060850524",
+            "borrowed": false
+        },
+        {
+            "title": "The Picture of Dorian Gray",
+            "author": "Oscar Wilde",
+            "isbn": "978-0141439570",
+            "borrowed": false
+        },
+        {
+            "title": "Frankenstein",
+            "author": "Mary Shelley",
+            "isbn": "978-0486282114",
+            "borrowed": false
+        },
+        {
+            "title": "The Brothers Karamazov",
+            "author": "Fyodor Dostoevsky",
+            "isbn": "978-0374528379",
+            "borrowed": false
+        }
+    ]
+}
