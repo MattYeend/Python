@@ -1,5 +1,5 @@
-from Python.SimpleWeatherProject.weather import get_weather
-from Python.SimpleWeatherProject.config import API_KEY
+from weather import get_weather
+from config import API_KEY
 
 def main():
     print("Welcome to the Weather App!")
