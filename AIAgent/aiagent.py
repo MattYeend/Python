@@ -2,7 +2,6 @@ import random
 import json
 import datetime
 import re
-from fuzzywuzzy import process
 
 class SmartAIAgent:
     def __init__(self):
@@ -46,18 +45,13 @@ class SmartAIAgent:
     def respond(self, user_input):
         user_input = user_input.lower()
 
-        # Check for direct greetings
-        greetings = ["hi", "hello", "hey", "howdy", "yo"]
-        if any(greeting in user_input for greeting in greetings):
+        # Directly handle common phrases
+        if "hi" in user_input or "hello" in user_input or "hey" in user_input:
             return random.choice(self.knowledge_base["hello"])
 
-        # Respond to "how are you"
+        # Handle "how are you" and variations
         if "how are you" in user_input:
             return random.choice(self.knowledge_base["how are you"])
-
-        # Respond to "what is your name" or similar
-        if "what is your name" in user_input or "your name" in user_input:
-            return random.choice(self.knowledge_base["your name"])
 
         if "my name is" in user_input:
             return self.remember_user(user_input)
@@ -65,13 +59,10 @@ class SmartAIAgent:
         if "what is my name" in user_input and "user_name" in self.memory:
             return f"Your name is {self.memory['user_name']}!"
 
-        # Fuzzy matching if no direct match found
-        best_match, score = process.extractOne(user_input, self.knowledge_base.keys())
-        
-        if score > 50:  # We lowered the threshold to 50 to catch more variations
-            response = random.choice(self.knowledge_base[best_match])
-            return response() if callable(response) else response
+        if "what is your name" in user_input or "your name" in user_input:
+            return random.choice(self.knowledge_base["your name"])
 
+        # Fallback if no match
         return random.choice(self.fallback_responses)
 
 if __name__ == "__main__":
