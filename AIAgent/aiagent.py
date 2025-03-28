@@ -1,14 +1,19 @@
 import random
 import json
 import datetime
+import re
+from fuzzywuzzy import process
 
-class IntelligentAIAgent:
+class SmartAIAgent:
     def __init__(self):
         self.knowledge_base = {
-            "greeting": ["Hi there!", "Hello! How can I assist you?", "Hey! What's up?"],
-            "feeling": ["I'm just a program, but I'm doing great!", "I'm functioning as expected! How about you?"],
-            "name": ["I'm an AI assistant created to help you.", "Call me AI Agent!"],
-            "goodbye": ["Goodbye! Have a great day!", "See you later!", "Take care!"]
+            "hello": ["Hi there!", "Hello! How can I assist you?", "Hey! What's up?"],
+            "how are you": ["I'm just a program, but I'm doing great!", "I'm functioning as expected! How about you?"],
+            "your name": ["I'm an AI assistant created to help you.", "Call me AI Agent!"],
+            "bye": ["Goodbye! Have a great day!", "See you later!", "Take care!"],
+            "time": [lambda: f"The current time is {datetime.datetime.now().strftime('%H:%M:%S')}"],
+            "date": [lambda: f"Today's date is {datetime.datetime.now().strftime('%Y-%m-%d')}"],
+            "weather": ["I can't fetch live weather updates, but you can check a weather website!"]
         }
         self.fallback_responses = [
             "I'm not sure how to respond to that.",
@@ -29,32 +34,48 @@ class IntelligentAIAgent:
         except FileNotFoundError:
             self.memory = {}
 
-    def remember_user(self, user_input, user_name):
-        self.memory["user_name"] = user_name
-        self.save_memory()
-        return f"Nice to meet you, {user_name}!"
+    def remember_user(self, user_input):
+        match = re.search(r"my name is (.+)", user_input, re.IGNORECASE)
+        if match:
+            user_name = match.group(1).strip()
+            self.memory["user_name"] = user_name
+            self.save_memory()
+            return f"Nice to meet you, {user_name}!"
+        return "I didn't catch your name. Could you repeat it?"
 
     def respond(self, user_input):
         user_input = user_input.lower()
 
+        # Check for direct greetings
+        greetings = ["hi", "hello", "hey", "howdy", "yo"]
+        if any(greeting in user_input for greeting in greetings):
+            return random.choice(self.knowledge_base["hello"])
+
+        # Respond to "how are you"
+        if "how are you" in user_input:
+            return random.choice(self.knowledge_base["how are you"])
+
+        # Respond to "what is your name" or similar
+        if "what is your name" in user_input or "your name" in user_input:
+            return random.choice(self.knowledge_base["your name"])
+
         if "my name is" in user_input:
-            user_name = user_input.split("my name is")[-1].strip()
-            return self.remember_user(user_input, user_name)
+            return self.remember_user(user_input)
 
         if "what is my name" in user_input and "user_name" in self.memory:
             return f"Your name is {self.memory['user_name']}!"
 
-        if "time" in user_input:
-            return f"The current time is {datetime.datetime.now().strftime('%H:%M:%S')}"
-
-        for key in self.knowledge_base:
-            if key in user_input:
-                return random.choice(self.knowledge_base[key])
+        # Fuzzy matching if no direct match found
+        best_match, score = process.extractOne(user_input, self.knowledge_base.keys())
+        
+        if score > 50:  # We lowered the threshold to 50 to catch more variations
+            response = random.choice(self.knowledge_base[best_match])
+            return response() if callable(response) else response
 
         return random.choice(self.fallback_responses)
 
 if __name__ == "__main__":
-    agent = IntelligentAIAgent()
+    agent = SmartAIAgent()
     print("AI Agent: Hello! Type 'exit' to quit.")
     while True:
         user_input = input("You: ")
